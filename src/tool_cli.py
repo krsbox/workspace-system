@@ -4,8 +4,10 @@ import sys
 from tools_manager import *
 from tool_helpers import *
 
+
 def show_help():
-    print("""
+    print(
+        """
 Tool Manager CLI
 
 USAGE:
@@ -22,21 +24,23 @@ USAGE:
   tool admin enable <user> <id>            - Enable tool
   tool admin reset <user> <id>             - Reset tool stats
   tool admin logs                          - Show admin logs
-""")
+"""
+    )
+
 
 def main():
     if len(sys.argv) < 2:
         show_help()
         return
-    
+
     cmd = sys.argv[1]
-    
+
     if cmd == "list":
         category = sys.argv[2] if len(sys.argv) > 2 else None
         tools = list_tools(category=category)
         for t in tools:
             print(f"[{t[0]}] {t[1]} ({t[2]}) - {t[3] or 'No description'}")
-    
+
     elif cmd == "stats" and len(sys.argv) >= 3:
         name = sys.argv[2]
         stats = get_tool_stats(name)
@@ -47,19 +51,19 @@ def main():
             print(f"Avg Runtime: {stats['avg_runtime']:.3f}s")
         else:
             print("Tool not found")
-    
+
     elif cmd == "health":
         summary = get_tool_health_summary()
         print("\n🔧 Tool Health Summary")
         print(f"Status: {summary['status_counts']}")
         print(f"Avg Success Rate: {summary['avg_success_rate']}%")
-    
+
     elif cmd == "execute" and len(sys.argv) >= 3:
         name = sys.argv[2]
         args = sys.argv[3:] if len(sys.argv) > 3 else None
         result = execute_tool(name, args)
-        print(result.get('output', result.get('error', 'No output')))
-    
+        print(result.get("output", result.get("error", "No output")))
+
     elif cmd == "discuss":
         if len(sys.argv) < 3:
             print("Usage: tool discuss <add|list|resolve> ...")
@@ -77,13 +81,13 @@ def main():
             review_type = sys.argv[4]
             discussions = get_discussions(review_id, review_type)
             for d in discussions:
-                status = "✓" if d['resolved'] else "○"
+                status = "✓" if d["resolved"] else "○"
                 print(f"{status} [{d['user']}] {d['message']}")
         elif subcmd == "resolve" and len(sys.argv) >= 4:
             disc_id = int(sys.argv[3])
             resolve_discussion(disc_id)
             print("✓ Discussion resolved")
-    
+
     elif cmd == "admin":
         if len(sys.argv) < 3:
             print("Usage: tool admin <disable|enable|reset|logs> ...")
@@ -108,11 +112,14 @@ def main():
         elif subcmd == "logs":
             logs = get_admin_logs()
             for log in logs:
-                details = f" - {log['details']}" if log['details'] else ""
-                print(f"[{log['created_at']}] {log['admin']}: {log['action']} on {log['target_type']}#{log['target_id']}{details}")
-    
+                details = f" - {log['details']}" if log["details"] else ""
+                print(
+                    f"[{log['created_at']}] {log['admin']}: {log['action']} on {log['target_type']}#{log['target_id']}{details}"
+                )
+
     else:
         show_help()
+
 
 if __name__ == "__main__":
     main()

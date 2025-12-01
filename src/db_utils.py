@@ -6,6 +6,7 @@ from contextlib import contextmanager
 
 DB_PATH = Path("/media/sunil-kr/workspace/workspace-system/workspace_knowledge.db")
 
+
 @contextmanager
 def get_db():
     """Context manager for database connections"""
@@ -19,6 +20,7 @@ def get_db():
     finally:
         conn.close()
 
+
 def execute(query, params=None):
     """Execute query and return results"""
     with get_db() as conn:
@@ -29,10 +31,12 @@ def execute(query, params=None):
             c.execute(query)
         return c.fetchall()
 
+
 def execute_one(query, params=None):
     """Execute query and return single result"""
     results = execute(query, params)
     return results[0] if results else None
+
 
 def insert(query, params):
     """Insert and return last row id"""

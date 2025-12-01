@@ -1,0 +1,16 @@
+[lint]
+# Ignore specific rules
+ignore = [
+    "E722",   # bare-except (allow for now)
+    "F401",   # unused-import (allow for now)
+    "F403",   # star-imports (allow for now)
+    "F405",   # undefined-from-star (allow for now)
+    "F841",   # unused-variable (allow for now)
+    "E701",   # multiple-statements-colon (allow for now)
+]
+
+[format]
+# Use black-compatible formatting
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

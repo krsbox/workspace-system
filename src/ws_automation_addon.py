@@ -11,21 +11,25 @@ AUTOMATION COMMANDS:
   ws auto-conclude                   - Conclusions & recommendations
 """
 
+
 # Add to workspace_cli.py main():
 def handle_automation_commands(cmd, args):
     """Handle automation commands"""
     from automation_manager import (
-        generate_report, quick_health_check,
-        auto_review, auto_study, auto_conclude
+        generate_report,
+        quick_health_check,
+        auto_review,
+        auto_study,
+        auto_conclude,
     )
-    
+
     if cmd == "report":
         period = args[0] if args else "daily"
         generate_report(period)
-    
+
     elif cmd == "health":
         quick_health_check()
-    
+
     elif cmd == "auto-review":
         review = auto_review()
         print("\n📊 AUTOMATED REVIEW")
@@ -33,50 +37,51 @@ def handle_automation_commands(cmd, args):
         print(f"\nMetrics: {len(review['metrics'])}")
         print(f"Achievements: {len(review['achievements'])}")
         print(f"Issues: {len(review['issues'])}")
-        
-        if review['achievements']:
+
+        if review["achievements"]:
             print("\n✅ Achievements:")
-            for a in review['achievements']:
+            for a in review["achievements"]:
                 print(f"  • {a}")
-        
-        if review['issues']:
+
+        if review["issues"]:
             print("\n⚠️  Issues:")
-            for i in review['issues']:
+            for i in review["issues"]:
                 print(f"  • {i}")
-    
+
     elif cmd == "auto-study":
         study = auto_study()
         print("\n🔍 TREND ANALYSIS")
         print("-" * 60)
-        
-        if study['trends']:
+
+        if study["trends"]:
             print("\nTrends:")
-            for metric, trend in study['trends'].items():
+            for metric, trend in study["trends"].items():
                 print(f"  • {metric}: {trend}")
-        
-        if study['insights']:
+
+        if study["insights"]:
             print("\nInsights:")
-            for insight in study['insights']:
+            for insight in study["insights"]:
                 print(f"  💡 {insight}")
-    
+
     elif cmd == "auto-conclude":
         review = auto_review()
         study = auto_study()
         conclusion = auto_conclude(review, study)
-        
+
         print("\n🎯 CONCLUSIONS")
         print("-" * 60)
         print(f"\nStatus: {conclusion['overall_status'].upper()}")
-        
-        if conclusion['recommendations']:
+
+        if conclusion["recommendations"]:
             print("\nRecommendations:")
-            for i, rec in enumerate(conclusion['recommendations'], 1):
+            for i, rec in enumerate(conclusion["recommendations"], 1):
                 print(f"  {i}. {rec}")
-        
-        if conclusion['action_items']:
+
+        if conclusion["action_items"]:
             print("\nAction Items:")
-            for i, action in enumerate(conclusion['action_items'], 1):
+            for i, action in enumerate(conclusion["action_items"], 1):
                 print(f"  {i}. {action}")
+
 
 # Integration instructions:
 """
