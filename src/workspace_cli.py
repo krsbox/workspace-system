@@ -45,6 +45,12 @@ try:
         get_complexity_score,
         get_utilization_summary,
     )
+    from project_manager import (
+        list_projects,
+        get_project,
+        analyze_project,
+        project_summary,
+    )
     from tool_helpers import (
         add_discussion,
         get_discussions,
@@ -82,6 +88,11 @@ NEW AUTOMATION:
   ws tasks               - List automated tasks
   ws improve             - Analyze what needs improvement
   ws optimize            - Find duplications & alternatives
+
+PROJECT MANAGEMENT:
+  ws projects            - List all projects
+  ws project <name>      - Show project details
+  ws project-analyze <name> - Analyze project stats
 
 DETAILED COMMANDS:
   Knowledge:    ws kb <add|search> ...
@@ -507,6 +518,52 @@ def main():
     elif cmd == "search" and len(sys.argv) >= 3:
         query = " ".join(sys.argv[2:])
         search_all(query)
+
+    elif cmd == "projects":
+        projects = list_projects()
+        if projects:
+            print("\n📁 Projects:")
+            for p in projects:
+                status_icon = "✓" if p[3] == "active" else "📦"
+                print(f"  {status_icon} [{p[3]}] {p[1]}")
+                print(f"     {p[2]}")
+        else:
+            print("\n📁 No projects registered")
+            print("   Run: python3 src/project_manager.py scan")
+
+    elif cmd == "project" and len(sys.argv) >= 3:
+        name = sys.argv[2]
+        project = get_project(name)
+        if project:
+            print(f"\n📁 Project: {project[1]}")
+            print(f"Status: {project[3]}")
+            print(f"Path: {project[2]}")
+            if project[4]:
+                print(f"Description: {project[4]}")
+            print(f"Created: {project[5]}")
+            print(f"Updated: {project[6]}")
+        else:
+            print(f"✗ Project '{name}' not found")
+
+    elif cmd == "project-analyze" and len(sys.argv) >= 3:
+        name = sys.argv[2]
+        project = get_project(name)
+        if project:
+            stats = analyze_project(project[2])
+            if stats:
+                print(f"\n📊 Project Analysis: {name}")
+                print(f"Path: {stats['path']}")
+                print(f"Files: {stats['files_count']:,}")
+                print(f"Python files: {stats['py_files']:,}")
+                print(f"Lines of code: {stats['lines_count']:,}")
+                print(f"Git: {'✓' if stats['has_git'] else '✗'}")
+                print(f"Tests: {'✓' if stats['has_tests'] else '✗'}")
+                print(f"Venv: {'✓' if stats['has_venv'] else '✗'}")
+                print(f"Requirements: {'✓' if stats['has_requirements'] else '✗'}")
+                if stats["last_commit"]:
+                    print(f"Last commit: {stats['last_commit']}")
+        else:
+            print(f"✗ Project '{name}' not found")
 
     elif cmd == "help":
         show_help()

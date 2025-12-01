@@ -7,17 +7,24 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
 
 # Virtual Environment
 .venv/
 venv/
 ENV/
+env/
+.virtualenv/
 
 # Database
 *.db
 *.db-journal
 *.sqlite
 *.sqlite3
+*.db-shm
+*.db-wal
 
 # IDE
 .vscode/
@@ -25,23 +32,78 @@ ENV/
 *.swp
 *.swo
 *~
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+Desktop.ini
 
 # Logs
 *.log
+logs/
+*.log.*
 
 # Backups
 backups/
 *.bak
+*.backup
+*~
 
 # Cache
 .cache/
 .pytest_cache/
 .ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.cover
+.hypothesis/
 
 # Environment
 .env
 .env.local
+.env.*.local
+*.env
+
+# Testing
+.tox/
+.nox/
+coverage.xml
+*.cover
+.pytest_cache/
+nosetests.xml
+
+# Documentation
+docs/_build/
+site/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Package managers
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build artifacts
+*.whl
+*.tar.gz
+*.zip

@@ -1,0 +1,46 @@
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Database (exclude from image)
+*.db
+*.sqlite
+
+# IDE
+.vscode/
+.idea/
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Tests
+tests/
+.pytest_cache/
+.coverage
+
+# Cache
+.cache/
+.ruff_cache/
+
+# Logs
+*.log
+logs/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db

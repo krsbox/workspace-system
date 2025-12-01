@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+
+# Build
+build/
+dist/
+
+# Cache
+.cache/
+.pytest_cache/
+.ruff_cache/
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite

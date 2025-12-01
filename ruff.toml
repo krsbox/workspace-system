@@ -9,8 +9,27 @@ ignore = [
     "E701",   # multiple-statements-colon (allow for now)
 ]
 
+# Exclude paths
+exclude = [
+    ".venv",
+    "venv",
+    "__pycache__",
+    ".pytest_cache",
+    ".ruff_cache",
+    "build",
+    "dist",
+    "*.egg-info",
+]
+
 [format]
 # Use black-compatible formatting
 quote-style = "double"
 indent-style = "space"
 line-ending = "auto"
+
+# Exclude from formatting
+exclude = [
+    ".venv",
+    "venv",
+    "__pycache__",
+]
