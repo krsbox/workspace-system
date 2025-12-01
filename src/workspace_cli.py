@@ -51,6 +51,16 @@ try:
         analyze_project,
         project_summary,
     )
+    from git_backup import (
+        git_backup,
+        git_recover,
+        list_git_backups,
+        cleanup_old_backups,
+    )
+    from smart_cleanup import (
+        analyze_project as analyze_cleanup,
+        auto_cleanup,
+    )
     from tool_helpers import (
         add_discussion,
         get_discussions,
@@ -93,6 +103,16 @@ PROJECT MANAGEMENT:
   ws projects            - List all projects
   ws project <name>      - Show project details
   ws project-analyze <name> - Analyze project stats
+
+BACKUP & RECOVERY:
+  ws backup <path> [reason] - Git backup (tag + stash)
+  ws backups <path>      - List git backup tags
+  ws recover <path> <tag> - Recover from git tag
+  ws cleanup-backups <path> - Remove old backup tags
+
+SMART CLEANUP:
+  ws analyze-cleanup <path> - Find duplicates, dead code, etc.
+  ws auto-cleanup <path> [--live] - Auto cleanup (safe operations)
 
 DETAILED COMMANDS:
   Knowledge:    ws kb <add|search> ...
@@ -564,6 +584,44 @@ def main():
                     print(f"Last commit: {stats['last_commit']}")
         else:
             print(f"✗ Project '{name}' not found")
+
+    elif cmd == "backup" and len(sys.argv) >= 3:
+        path = sys.argv[2]
+        reason = sys.argv[3] if len(sys.argv) > 3 else "manual"
+        tag = git_backup(path, reason)
+        if tag:
+            print(f"\n✓ Git backup created: {tag}")
+
+    elif cmd == "backups" and len(sys.argv) >= 3:
+        path = sys.argv[2]
+        backups = list_git_backups(path)
+        if backups:
+            print(f"\n📦 Git Backups ({len(backups)}):")
+            for tag in backups:
+                print(f"  {tag}")
+        else:
+            print("\n📦 No git backups found")
+
+    elif cmd == "recover" and len(sys.argv) >= 4:
+        path = sys.argv[2]
+        tag = sys.argv[3]
+        success = git_recover(tag, path)
+        if success:
+            print("\n✓ Recovery complete")
+
+    elif cmd == "cleanup-backups" and len(sys.argv) >= 3:
+        path = sys.argv[2]
+        keep = int(sys.argv[3]) if len(sys.argv) > 3 else 5
+        removed = cleanup_old_backups(path, keep)
+
+    elif cmd == "analyze-cleanup" and len(sys.argv) >= 3:
+        path = sys.argv[2]
+        analyze_cleanup(path)
+
+    elif cmd == "auto-cleanup" and len(sys.argv) >= 3:
+        path = sys.argv[2]
+        live = "--live" in sys.argv
+        auto_cleanup(path, dry_run=not live)
 
     elif cmd == "help":
         show_help()
