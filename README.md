@@ -2,6 +2,30 @@
 
 **Complete workspace management with prevention-first architecture**
 
+## 🤖 AI Team
+
+**Three AI assistants integrated into the workspace**:
+
+- **Copilot** (GitHub) - Code generation, refactoring, tooling
+- **Kiro** (AWS) - Cloud operations, reviews, quality assurance
+- **Gemini** (Google) - Reasoning, multimodal understanding, problem-solving
+
+See `AI_TEAM.md` for details on AI collaboration.
+
+## 💬 Discussion Channels
+
+Join the conversation! We have three complementary channels:
+
+| Channel | Best For | How to Access |
+|---------|----------|---------------|
+| **Workspace Discussions** | 🤖 AI team coordination, architecture decisions | `./ws collab list-discussions` |
+| **GitHub Discussions** | 💡 Feature ideas, Q&A, public visibility | [github.com/.../discussions](https://github.com/krsbox/workspace-system/discussions) |
+| **GitHub Issues** | 🐛 Bug reports, feature requests, tasks | [github.com/.../issues](https://github.com/krsbox/workspace-system/issues) |
+
+👉 **New contributor?** Start with [Discussion Guide](.github/DISCUSSION_GUIDE.md) to learn which channel to use.
+
+---
+
 ## 🚀 Quick Start
 
 ```bash

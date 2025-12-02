@@ -82,9 +82,7 @@ def init_db():
 
 
 # === TOOL REGISTRY ===
-def register_tool(
-    name, type, command, description="", category="general", version="1.0"
-):
+def register_tool(name, type, command, description="", category="general", version="1.0"):
     """Register a tool"""
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -116,9 +114,7 @@ def list_tools(category=None, status="active"):
             (category, status),
         )
     else:
-        c.execute(
-            "SELECT * FROM tools WHERE status=? ORDER BY category, name", (status,)
-        )
+        c.execute("SELECT * FROM tools WHERE status=? ORDER BY category, name", (status,))
 
     results = c.fetchall()
     conn.close()
@@ -351,11 +347,7 @@ def get_health_status():
     total = len(results)
 
     return {
-        "overall": (
-            "healthy"
-            if healthy == total
-            else "degraded" if healthy > 0 else "unhealthy"
-        ),
+        "overall": ("healthy" if healthy == total else "degraded" if healthy > 0 else "unhealthy"),
         "components": results,
         "healthy_count": healthy,
         "total_count": total,
@@ -407,9 +399,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 2:
         print("Usage:")
-        print(
-            "  Tool:    python tools_manager.py tool <register|list|stats|execute> ..."
-        )
+        print("  Tool:    python tools_manager.py tool <register|list|stats|execute> ...")
         print("  Improve: python tools_manager.py improve <propose|list|implement> ...")
         print("  Health:  python tools_manager.py health <check|status> ...")
         print("  Discover: python tools_manager.py discover")
@@ -434,9 +424,7 @@ if __name__ == "__main__":
             tools = list_tools(category)
             print(f"\nTools ({len(tools)}):")
             for t in tools:
-                print(
-                    f"  [{t[5]}] {t[1]} ({t[2]}) - {t[8]} uses, {t[9]}/{t[10]} success/fail"
-                )
+                print(f"  [{t[5]}] {t[1]} ({t[2]}) - {t[8]} uses, {t[9]}/{t[10]} success/fail")
 
         elif cmd == "stats" and len(sys.argv) >= 4:
             stats = get_tool_stats(sys.argv[3])
@@ -481,9 +469,7 @@ if __name__ == "__main__":
         if cmd == "status":
             health = get_health_status()
             print(f"\nSystem Health: {health['overall'].upper()}")
-            print(
-                f"Components: {health['healthy_count']}/{health['total_count']} healthy\n"
-            )
+            print(f"Components: {health['healthy_count']}/{health['total_count']} healthy\n")
             for c in health["components"]:
                 status_icon = "✓" if c[1] == "healthy" else "✗"
                 print(f"  {status_icon} {c[0]}: {c[1]} - {c[2]}")

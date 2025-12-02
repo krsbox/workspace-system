@@ -1,0 +1,40 @@
+name: Documentation improvement
+about: Propose an improvement to docs, guides, or README
+title: "Docs: "
+labels: [documentation]
+body:
+  - type: markdown
+    attributes:
+      value: "<!-- template: docs_improvement -->\nPlease point to the page or section that needs improvement and suggest the change."
+  - type: input
+    id: page
+    attributes:
+      label: Page / File
+      description: Which documentation page needs updates (path or link)
+      placeholder: "README.md or docs/SETUP.md"
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current text / behavior
+      description: What currently exists
+    validations:
+      required: true
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Suggested change
+      description: Proposed replacement text or edits
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why this change improves the docs
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: "**Note**: When updating docs related to prevention or quality, reference `./ws check` and quality gate constraints (< 5ms)."

@@ -1,0 +1,58 @@
+name: Task / Todo
+about: Create a task or tracked todo item
+title: "Task: "
+labels: [task]
+body:
+  - type: markdown
+    attributes:
+      value: "<!-- template: task_todo -->\nUse this template for general tasks or work items. Keep it actionable."
+  - type: input
+    id: title
+    attributes:
+      label: Task title
+      description: Short title for the task
+      placeholder: "Refactor prevention_system API"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Detailed description and acceptance criteria
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Implementation steps
+      description: Suggested steps to complete the task
+    validations:
+      required: false
+  - type: input
+    id: assignees
+    attributes:
+      label: Suggested assignees
+      description: GitHub usernames or team
+      placeholder: "@alice, @bob"
+    validations:
+      required: false
+  - type: input
+    id: due_date
+    attributes:
+      label: Due date (optional)
+      description: YYYY-MM-DD
+    validations:
+      required: false
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - Low
+        - Medium
+        - High
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "**Note**: For cross-system impact, include related discussion links (see .github/DISCUSSION_GUIDE.md)."

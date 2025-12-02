@@ -1,0 +1,55 @@
+name: PR Checks - Run Tests & Workspace Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  pr_checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Ensure ws CLI exists
+        run: |
+          # create a lightweight CLI entrypoint
+          if [ -f src/workspace_cli.py ]; then
+            ln -sf src/workspace_cli.py ws || true
+            chmod +x src/workspace_cli.py || true
+          fi
+
+      - name: Run tests
+        run: |
+          python3 run_tests.py
+
+      - name: Run workspace checks (./ws check)
+        run: |
+          if [ -x ./ws ]; then
+            ./ws check
+          else
+            python3 src/workspace_cli.py check || true
+          fi
+
+      - name: Lint (optional)
+        run: |
+          if command -v ruff >/dev/null 2>&1; then
+            ruff check src/ || true
+          fi
+
+      - name: Upload check results (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-checks-output
+          path: |
+            .

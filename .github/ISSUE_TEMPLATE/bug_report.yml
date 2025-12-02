@@ -1,0 +1,75 @@
+name: Bug report
+about: Create a report to help us reproduce and fix a bug
+title: "Bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "<!-- template: bug_report -->\nPlease fill in the sections below to help us reproduce and fix the issue."
+  - type: input
+    id: short_description
+    attributes:
+      label: Short description
+      description: A one-line summary of the bug
+      placeholder: "Short description of the bug"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Step-by-step instructions to reproduce the bug
+      placeholder: "1. ...\n2. ...\n3. ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What you expected to happen
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened
+    validations:
+      required: true
+  - type: input
+    id: logs
+    attributes:
+      label: Relevant logs or error messages
+      description: Paste logs or stack traces (if any)
+      placeholder: "Traceback..."
+    validations:
+      required: false
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, workspace revision, DB state
+      placeholder: "Ubuntu 22.04, Python 3.12, branch: copilot"
+    validations:
+      required: false
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction_link
+    attributes:
+      label: Reproduction (optional)
+      description: Link to a minimal repro or sandbox
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: "**Note**: Run `./ws check` and include any findings or outputs if relevant. Also reference prevention rules (< 5ms) if this involves the prevention layer."

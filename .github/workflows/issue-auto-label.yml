@@ -1,0 +1,55 @@
+name: Issue Auto-Labeler
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  label-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check payload and add label
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const body = context.payload.issue && context.payload.issue.body || '';
+            const mapping = {
+              'template: bug_report': ['bug'],
+              'template: feature_request': ['enhancement','idea'],
+              'template: task_todo': ['task'],
+              'template: performance_issue': ['performance'],
+              'template: docs_improvement': ['documentation']
+            };
+            let found = null;
+            for (const key of Object.keys(mapping)) {
+              if (body.includes(key)) { found = key; break; }
+            }
+            if (!found) {
+              // try title heuristics
+              const title = context.payload.issue.title || '';
+              if (/bug/i.test(title)) found = 'template: bug_report';
+            }
+            if (found) {
+              const labels = mapping[found];
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels
+              });
+            }
+            // If feature or architecture related, add a helpful comment linking to discussion guide
+            const discussionTemplates = ['template: feature_request','template: task_todo','template: docs_improvement','template: performance_issue'];
+            if (found && discussionTemplates.includes(found)) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: "Thanks — we've added labels. For community or design discussion, see `.github/DISCUSSION_GUIDE.md` and consider starting/mirroring the conversation in GitHub Discussions after enabling it."
+              });
+            }

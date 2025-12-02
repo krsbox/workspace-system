@@ -141,9 +141,7 @@ def status_dashboard():
     try:
         complexity = get_complexity_score()
         print(f"\n📊 Complexity: {complexity['score']} ({complexity['level'].upper()})")
-        print(
-            f"   Capabilities: {complexity['capabilities']}, Tools: {complexity['tools']}"
-        )
+        print(f"   Capabilities: {complexity['capabilities']}, Tools: {complexity['tools']}")
     except:
         print("\n📊 Complexity: N/A")
 
@@ -281,11 +279,7 @@ def list_todos_by_priority():
                 icon = (
                     "🔴"
                     if priority == "urgent"
-                    else (
-                        "🟠"
-                        if priority == "high"
-                        else "🟡" if priority == "medium" else "🟢"
-                    )
+                    else ("🟠" if priority == "high" else "🟡" if priority == "medium" else "🟢")
                 )
                 print(f"\n{icon} {priority.upper()} ({len(items)})")
                 for t in items[:5]:  # Show top 5
@@ -309,9 +303,7 @@ def run_all_checks():
         result = execute_gate("pre-commit")
         if result:
             status = "✓ PASS" if result["status"] == "pass" else "✗ FAIL"
-            print(
-                f"   {status} ({result['passed']}/{result['passed']+result['failed']})"
-            )
+            print(f"   {status} ({result['passed']}/{result['passed']+result['failed']})")
     except:
         print("   ⊘ No gate configured")
 
@@ -371,9 +363,7 @@ def search_all(query):
     try:
         proposals = list_proposals()
         matching = [
-            p
-            for p in proposals
-            if query.lower() in p[1].lower() or query.lower() in p[2].lower()
+            p for p in proposals if query.lower() in p[1].lower() or query.lower() in p[2].lower()
         ]
         if matching:
             print(f"\n📝 Proposals ({len(matching)}):")

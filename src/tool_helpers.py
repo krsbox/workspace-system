@@ -91,9 +91,7 @@ def resolve_discussion(discussion_id):
     """Mark discussion as resolved"""
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    c.execute(
-        "UPDATE review_discussions SET resolved = 1 WHERE id = ?", (discussion_id,)
-    )
+    c.execute("UPDATE review_discussions SET resolved = 1 WHERE id = ?", (discussion_id,))
     conn.commit()
     conn.close()
 

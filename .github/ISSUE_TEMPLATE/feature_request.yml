@@ -1,0 +1,59 @@
+name: Feature request
+about: Suggest an improvement, new feature, or enhancement
+title: "Feature: "
+labels: [enhancement, idea]
+body:
+  - type: markdown
+    attributes:
+      value: "<!-- template: feature_request -->\nPlease describe your feature request concisely and why it matters."
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: One-line summary of the feature
+      placeholder: "Add Redis caching for tool results"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem this solves
+      description: What problem does this feature address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How you envision implementing this feature
+    validations:
+      required: true
+  - type: textarea
+    id: benefits
+    attributes:
+      label: Benefits
+      description: Who benefits and how
+    validations:
+      required: false
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Estimated complexity
+      options:
+        - "🟢 Low"
+        - "🟡 Medium"
+        - "🔴 High"
+        - "❓ Unknown"
+    validations:
+      required: true
+  - type: input
+    id: related
+    attributes:
+      label: Related issues/discussions
+      description: Link to any related issue or workspace discussion
+      placeholder: "#12 or https://github.com/.../discussions/5"
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: "**Note**: Reference `./ws check` and any quality gate expectations when the feature touches prevention or quality systems (prevention rules must stay < 5ms)."

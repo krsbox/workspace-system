@@ -150,9 +150,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage:")
         print("  approve_suggestions.py interactive       - Interactive review")
-        print(
-            "  approve_suggestions.py batch [threshold] - Batch approve (default: 0.90)"
-        )
+        print("  approve_suggestions.py batch [threshold] - Batch approve (default: 0.90)")
         print("  approve_suggestions.py list              - List pending")
         sys.exit(1)
 

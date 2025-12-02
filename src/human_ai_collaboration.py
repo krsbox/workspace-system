@@ -273,9 +273,7 @@ if __name__ == "__main__":
 
         print(f"\n{mode.upper()} IDEAS ({len(ideas)} total)\n")
         for idea_id, title, category, reality, confidence in ideas[:20]:
-            print(
-                f"  #{idea_id:5} [{category:12}] {reality:.0f}% conf:{confidence:.0%}"
-            )
+            print(f"  #{idea_id:5} [{category:12}] {reality:.0f}% conf:{confidence:.0%}")
             print(f"         {title[:70]}")
 
     elif cmd == "stats":
@@ -286,9 +284,7 @@ if __name__ == "__main__":
         print("COLLABORATION STATISTICS")
         print("=" * 60 + "\n")
 
-        c.execute(
-            "SELECT mode, COUNT(*), AVG(confidence) FROM collaboration_modes GROUP BY mode"
-        )
+        c.execute("SELECT mode, COUNT(*), AVG(confidence) FROM collaboration_modes GROUP BY mode")
         for mode, count, avg_conf in c.fetchall():
             print(f"{mode:20} {count:6,} ideas (avg confidence: {avg_conf:.0%})")
 
@@ -297,9 +293,7 @@ if __name__ == "__main__":
         needs_review = c.fetchone()[0]
         print(f"Needs human review: {needs_review:,}")
 
-        c.execute(
-            "SELECT COUNT(*) FROM collaboration_modes WHERE reviewed_by IS NOT NULL"
-        )
+        c.execute("SELECT COUNT(*) FROM collaboration_modes WHERE reviewed_by IS NOT NULL")
         reviewed = c.fetchone()[0]
         print(f"Already reviewed: {reviewed:,}")
 

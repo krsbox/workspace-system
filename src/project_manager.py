@@ -204,9 +204,7 @@ def scan_projects_directory():
     if current_dir.exists():
         for item in current_dir.iterdir():
             if item.is_dir() and not item.name.startswith("."):
-                discovered.append(
-                    {"name": item.name, "path": str(item), "status": "active"}
-                )
+                discovered.append({"name": item.name, "path": str(item), "status": "active"})
 
     # Scan archived projects
     archive_dir = PROJECTS_ROOT / "archive"

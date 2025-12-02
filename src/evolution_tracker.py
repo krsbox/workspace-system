@@ -116,24 +116,16 @@ def show_evolution():
         first_ts = timestamps[0]
         last_ts = timestamps[-1]
 
-        c.execute(
-            "SELECT metric, value FROM system_evolution WHERE timestamp=?", (first_ts,)
-        )
+        c.execute("SELECT metric, value FROM system_evolution WHERE timestamp=?", (first_ts,))
         first_metrics = dict(c.fetchall())
 
-        c.execute(
-            "SELECT metric, value FROM system_evolution WHERE timestamp=?", (last_ts,)
-        )
+        c.execute("SELECT metric, value FROM system_evolution WHERE timestamp=?", (last_ts,))
         last_metrics = dict(c.fetchall())
 
         for metric in first_metrics:
             if metric in last_metrics:
                 growth = last_metrics[metric] - first_metrics[metric]
-                pct = (
-                    (growth / first_metrics[metric] * 100)
-                    if first_metrics[metric] > 0
-                    else 0
-                )
+                pct = (growth / first_metrics[metric] * 100) if first_metrics[metric] > 0 else 0
                 emoji = "📈" if growth > 0 else "📉" if growth < 0 else "➡️"
                 print(f"{emoji} {metric:25} {growth:+,.0f} ({pct:+.1f}%)")
 

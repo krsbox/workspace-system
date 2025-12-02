@@ -47,9 +47,7 @@ def get_critical_todos(limit=30):
 
 def check_duplicate(title):
     """Check if idea already exists"""
-    result = subprocess.run(
-        ["python3", "dedup_checker.py", title], capture_output=True, text=True
-    )
+    result = subprocess.run(["python3", "dedup_checker.py", title], capture_output=True, text=True)
     return result.returncode != 0  # True if duplicates found
 
 
@@ -86,7 +84,9 @@ def execute_phase1():
             continue
 
         # Create proposal
-        description = f"High-quality pattern from extracted ideas (ID: {idea_id}, Reality: {reality}%)"
+        description = (
+            f"High-quality pattern from extracted ideas (ID: {idea_id}, Reality: {reality}%)"
+        )
         if create_proposal(proposal_title, description):
             print("  ✓ Proposal created")
             integrated += 1
@@ -123,9 +123,7 @@ def execute_phase2_todos():
             continue
 
         # Create proposal
-        description = (
-            f"Technical debt from {source} (ID: {idea_id}, Reality: {reality}%)"
-        )
+        description = f"Technical debt from {source} (ID: {idea_id}, Reality: {reality}%)"
         if create_proposal(proposal_title, description):
             print("  ✓ Proposal created")
             integrated += 1
@@ -167,7 +165,5 @@ if __name__ == "__main__":
     print("=" * 60)
     print(f"  Integrated: {total_integrated}")
     print(f"  Skipped: {total_skipped}")
-    print(
-        f"  Success rate: {total_integrated/(total_integrated+total_skipped)*100:.1f}%"
-    )
+    print(f"  Success rate: {total_integrated/(total_integrated+total_skipped)*100:.1f}%")
     print("\nNext: Review proposals with './ws status' and './ws todo'")

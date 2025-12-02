@@ -76,9 +76,7 @@ def auto_review():
         review["status"]["complexity"] = complexity["level"]
 
         if complexity["level"] == "low":
-            review["achievements"].append(
-                f"Maintained low complexity: {complexity['score']}"
-            )
+            review["achievements"].append(f"Maintained low complexity: {complexity['score']}")
         elif complexity["level"] == "high":
             review["issues"].append(f"High complexity detected: {complexity['score']}")
     except:
@@ -91,9 +89,7 @@ def auto_review():
         review["metrics"]["quality_grade"] = assessment["grade"]
 
         if assessment["grade"] in ["A", "B"]:
-            review["achievements"].append(
-                f"High quality maintained: {assessment['grade']}"
-            )
+            review["achievements"].append(f"High quality maintained: {assessment['grade']}")
         else:
             review["issues"].append(f"Quality needs improvement: {assessment['grade']}")
     except:
@@ -111,9 +107,7 @@ def auto_review():
         review["metrics"]["tool_success_rate"] = round(success_rate, 1)
 
         if success_rate >= 90:
-            review["achievements"].append(
-                f"High tool success rate: {success_rate:.1f}%"
-            )
+            review["achievements"].append(f"High tool success rate: {success_rate:.1f}%")
         elif success_rate < 70:
             review["issues"].append(f"Low tool success rate: {success_rate:.1f}%")
     except:
@@ -189,9 +183,7 @@ def auto_study():
             study["insights"].append("Complexity is decreasing - good!")
         elif recent > older:
             study["trends"]["complexity"] = "increasing"
-            study["insights"].append(
-                "Complexity is increasing - consider simplification"
-            )
+            study["insights"].append("Complexity is increasing - consider simplification")
         else:
             study["trends"]["complexity"] = "stable"
 
@@ -277,25 +269,19 @@ def auto_conclude(review, study):
         )
 
     if review["issues"]:
-        conclusion["key_findings"].append(
-            f"Issues: {len(review['issues'])} items need attention"
-        )
+        conclusion["key_findings"].append(f"Issues: {len(review['issues'])} items need attention")
 
     if study["trends"]:
         improving = sum(
             1 for t in study["trends"].values() if t == "improving" or t == "decreasing"
         )
         if improving > 0:
-            conclusion["key_findings"].append(
-                f"Positive trends: {improving} metrics improving"
-            )
+            conclusion["key_findings"].append(f"Positive trends: {improving} metrics improving")
 
     # Recommendations
     if review["metrics"].get("complexity", 0) > 100:
         conclusion["recommendations"].append("Reduce complexity through consolidation")
-        conclusion["action_items"].append(
-            "Run: python3 maintenance_system.py complexity suggest"
-        )
+        conclusion["action_items"].append("Run: python3 maintenance_system.py complexity suggest")
 
     if review["metrics"].get("todos_urgent", 0) > 3:
         conclusion["recommendations"].append("Address urgent todos immediately")

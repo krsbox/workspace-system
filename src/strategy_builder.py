@@ -11,23 +11,17 @@ def analyze_ideas():
     c = conn.cursor()
 
     # Get statistics
-    c.execute(
-        "SELECT COUNT(*), category, AVG(reality_score) FROM ideas GROUP BY category"
-    )
+    c.execute("SELECT COUNT(*), category, AVG(reality_score) FROM ideas GROUP BY category")
     categories = c.fetchall()
 
     c.execute("SELECT COUNT(*) FROM ideas WHERE reality_score >= 70")
     high_quality = c.fetchone()[0]
 
-    c.execute(
-        "SELECT COUNT(*) FROM ideas WHERE reality_score >= 50 AND reality_score < 70"
-    )
+    c.execute("SELECT COUNT(*) FROM ideas WHERE reality_score >= 50 AND reality_score < 70")
     medium_quality = c.fetchone()[0]
 
     # Get unique patterns
-    c.execute(
-        "SELECT title FROM ideas WHERE category='pattern' AND reality_score >= 70 LIMIT 100"
-    )
+    c.execute("SELECT title FROM ideas WHERE category='pattern' AND reality_score >= 70 LIMIT 100")
     patterns = [row[0].replace("Pattern: class ", "") for row in c.fetchall()]
 
     # Get actionable TODOs
