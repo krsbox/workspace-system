@@ -1,0 +1,46 @@
+title: Feature Idea or Improvement
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share your ideas for improving the workspace system!
+  
+  - type: textarea
+    id: description
+    attributes:
+      label: Idea
+      description: What feature or improvement would you like to see?
+      placeholder: "I think we should add..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem It Solves
+      description: What problem would this solve?
+      placeholder: "Currently, developers have to... This would help by..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: benefits
+    attributes:
+      label: Benefits
+      description: How would this benefit the project or users?
+      placeholder: "This would improve..."
+    validations:
+      required: false
+  
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Estimated Complexity
+      options:
+        - "🟢 Low (can implement quickly)"
+        - "🟡 Medium (requires planning)"
+        - "🔴 High (significant effort)"
+        - "❓ Unsure"
+    validations:
+      required: true

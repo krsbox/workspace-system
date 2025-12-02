@@ -1,0 +1,40 @@
+title: Question about Workspace System
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for asking! Help us help you by providing clear details.
+  
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: "Example: How do I add a new subsystem to the workspace?"
+    validations:
+      required: true
+  
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What were you trying to do? Any relevant code or error messages?
+      placeholder: "I was trying to... and I got..."
+    validations:
+      required: false
+  
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic Area
+      options:
+        - CLI Commands
+        - Database Operations
+        - Prevention Rules
+        - Quality Gates
+        - Testing
+        - Architecture
+        - Other
+    validations:
+      required: true

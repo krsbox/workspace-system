@@ -1,0 +1,56 @@
+name: Performance issue
+about: Report a performance regression or metric-related problem
+title: "Performance: "
+labels: [performance]
+body:
+  - type: markdown
+    attributes:
+      value: "<!-- template: performance_issue -->\nDescribe the performance problem, impacted components, and metrics."
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: Which component is affected (e.g., prevention_system, kb_manager)
+      placeholder: "prevention_system"
+    validations:
+      required: true
+  - type: input
+    id: metric
+    attributes:
+      label: Metric
+      description: Metric name (latency, throughput, memory)
+      placeholder: "latency_ms"
+    validations:
+      required: true
+  - type: input
+    id: baseline
+    attributes:
+      label: Baseline / Expected
+      description: What was expected or baseline metric
+      placeholder: "< 5ms (prevention checks)"
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior / numbers
+      description: Actual measured numbers
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce / benchmark steps
+      description: How to reproduce the measurement
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Who or what is affected
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: "**Note**: If this is about prevention rules, remember prevention checks must remain < 5ms. Include `./ws check` outputs and any `quality_gate` findings where relevant."

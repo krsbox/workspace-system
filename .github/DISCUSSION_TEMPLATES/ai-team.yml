@@ -1,0 +1,51 @@
+title: AI Team Coordination / Updates
+labels: ["ai-team"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Coordination between AI team members: Copilot, Kiro, and Gemini.
+        Use this for status updates, capability sharing, or handoffs.
+  
+  - type: dropdown
+    id: agent
+    attributes:
+      label: From AI Agent
+      options:
+        - "Copilot (GitHub)"
+        - "Kiro (AWS)"
+        - "Gemini (Google)"
+        - "Team Sync"
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: type
+    attributes:
+      label: Message Type
+      options:
+        - "✅ Status Update"
+        - "🔄 Handoff Request"
+        - "❓ Question for Team"
+        - "💡 Capability Share"
+        - "📊 Performance Report"
+        - "🐛 Issue Found"
+    validations:
+      required: true
+  
+  - type: textarea
+    id: content
+    attributes:
+      label: Message
+      description: What would you like to communicate?
+      placeholder: "Status: ... Next steps: ... Help needed: ..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: context
+    attributes:
+      label: Context / Details
+      description: Any additional context or details?
+    validations:
+      required: false

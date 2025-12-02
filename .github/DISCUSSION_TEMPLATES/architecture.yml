@@ -1,0 +1,65 @@
+title: Architecture Decision / Design Discussion
+labels: ["architecture"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Discussing architectural decisions or design approaches for the workspace system.
+  
+  - type: textarea
+    id: decision
+    attributes:
+      label: Architecture Decision
+      description: What are you proposing to decide or discuss?
+      placeholder: "We need to decide how to handle..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why is this decision needed? What's the background?
+      placeholder: "Current situation: ... Problem: ... Impact: ..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: options
+    attributes:
+      label: Options Being Considered
+      description: List alternatives or approaches
+      placeholder: |
+        **Option A:**
+        - Pros:
+        - Cons:
+        
+        **Option B:**
+        - Pros:
+        - Cons:
+    validations:
+      required: true
+  
+  - type: textarea
+    id: concerns
+    attributes:
+      label: Concerns or Constraints
+      description: Any constraints or concerns to consider?
+      placeholder: "Must maintain < 5ms overhead... Cannot break existing..."
+    validations:
+      required: false
+  
+  - type: dropdown
+    id: area
+    attributes:
+      label: Architecture Area
+      options:
+        - "🗄️ Database & Schema"
+        - "🔒 Prevention System"
+        - "⚙️ Quality Gates"
+        - "🤖 AI Team Integration"
+        - "🔌 CLI & Interface"
+        - "📊 Workflow & Automation"
+        - "Other"
+    validations:
+      required: true
