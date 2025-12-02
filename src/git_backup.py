@@ -69,9 +69,7 @@ def git_recover(tag_name, project_path):
 
     try:
         # Checkout tag
-        subprocess.run(
-            ["git", "-C", str(project_path), "checkout", tag_name], check=True
-        )
+        subprocess.run(["git", "-C", str(project_path), "checkout", tag_name], check=True)
         print(f"✓ Recovered to: {tag_name}")
         return True
 

@@ -320,9 +320,7 @@ def run_assessment(type, target):
                 recommendations.append("Review and fix failing tools")
 
         # Check recent reviews
-        c.execute(
-            'SELECT COUNT(*) FROM code_reviews WHERE created_at > datetime("now", "-7 days")'
-        )
+        c.execute('SELECT COUNT(*) FROM code_reviews WHERE created_at > datetime("now", "-7 days")')
         review_count = c.fetchone()[0]
         if review_count == 0:
             score -= 10
@@ -417,12 +415,8 @@ def check_degradation(component, metric_name, value, threshold):
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
 
-        message = (
-            f"{component}.{metric_name} degrading: {value} (threshold: {threshold})"
-        )
-        metric_data = json.dumps(
-            {"value": value, "threshold": threshold, "trend": trend}
-        )
+        message = f"{component}.{metric_name} degrading: {value} (threshold: {threshold})"
+        metric_data = json.dumps({"value": value, "threshold": threshold, "trend": trend})
 
         c.execute(
             """INSERT INTO degradation_alerts (component, severity, message, metric_data, created_at)
@@ -466,9 +460,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 2:
         print("Usage:")
-        print(
-            "  Metric:  python quality_gate.py metric <component> <name> <value> <threshold>"
-        )
+        print("  Metric:  python quality_gate.py metric <component> <name> <value> <threshold>")
         print("  Gate:    python quality_gate.py gate <create|execute|list> ...")
         print("  Assess:  python quality_gate.py assess <type> <target>")
         print("  Alerts:  python quality_gate.py alerts [resolved]")
@@ -477,9 +469,7 @@ if __name__ == "__main__":
     cmd = sys.argv[1]
 
     if cmd == "metric" and len(sys.argv) >= 6:
-        metric_id = record_metric(
-            sys.argv[2], sys.argv[3], float(sys.argv[4]), float(sys.argv[5])
-        )
+        metric_id = record_metric(sys.argv[2], sys.argv[3], float(sys.argv[4]), float(sys.argv[5]))
         print(f"Recorded metric #{metric_id}")
 
         trend = get_metric_trend(sys.argv[2], sys.argv[3])

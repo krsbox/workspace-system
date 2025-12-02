@@ -428,9 +428,7 @@ if __name__ == "__main__":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else None
 
         if subcmd == "add" and len(sys.argv) >= 6:
-            rule_id = add_prevention_rule(
-                sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6]
-            )
+            rule_id = add_prevention_rule(sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
             print(f"Added prevention rule #{rule_id}")
 
         elif subcmd == "check":
@@ -455,9 +453,7 @@ if __name__ == "__main__":
             if violations:
                 print(f"\n🚫 {len(violations)} guardrail violations:")
                 for v in violations:
-                    print(
-                        f"  • {v['guardrail']}: {v['type']} ({v['value']} vs {v['limit']})"
-                    )
+                    print(f"  • {v['guardrail']}: {v['type']} ({v['value']} vs {v['limit']})")
             else:
                 print("✓ Within guardrails")
 

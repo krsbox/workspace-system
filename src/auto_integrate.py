@@ -47,9 +47,7 @@ def get_ideas_for_mode(mode, limit=10):
 def check_safe_to_integrate(idea_id, title):
     """Safety checks before integration"""
     # Check duplication
-    result = subprocess.run(
-        ["python3", "dedup_checker.py", title], capture_output=True, text=True
-    )
+    result = subprocess.run(["python3", "dedup_checker.py", title], capture_output=True, text=True)
 
     if result.returncode != 0:
         return False, "Duplicate found"
@@ -109,9 +107,7 @@ def auto_integrate(mode, dry_run=False, limit=10):
 
     for idea_id, title, category, reality, confidence in ideas:
         print(f"Processing #{idea_id}: {title[:50]}...")
-        print(
-            f"  Category: {category}, Reality: {reality:.0f}%, Confidence: {confidence:.0%}"
-        )
+        print(f"  Category: {category}, Reality: {reality:.0f}%, Confidence: {confidence:.0%}")
 
         if dry_run:
             print("  [DRY RUN] Would integrate")

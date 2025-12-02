@@ -280,9 +280,7 @@ def get_session_summary(session_id):
     msg_count = c.fetchone()[0]
 
     # Bookmarks
-    c.execute(
-        "SELECT COUNT(*) FROM session_bookmarks WHERE session_id=?", (session_id,)
-    )
+    c.execute("SELECT COUNT(*) FROM session_bookmarks WHERE session_id=?", (session_id,))
     bookmark_count = c.fetchone()[0]
 
     # State keys
@@ -316,9 +314,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 2:
         print("Usage:")
-        print(
-            "  Session:  python session_manager.py session <start|end|list|resume|summary> ..."
-        )
+        print("  Session:  python session_manager.py session <start|end|list|resume|summary> ...")
         print("  Message:  python session_manager.py msg <add|list|search> ...")
         print("  State:    python session_manager.py state <set|get|list> ...")
         print("  Bookmark: python session_manager.py bookmark <add|list> ...")

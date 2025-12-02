@@ -117,9 +117,7 @@ def list_users(role=None):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     if role:
-        c.execute(
-            "SELECT * FROM users WHERE role=? AND active=1 ORDER BY username", (role,)
-        )
+        c.execute("SELECT * FROM users WHERE role=? AND active=1 ORDER BY username", (role,))
     else:
         c.execute("SELECT * FROM users WHERE active=1 ORDER BY role, username")
     results = c.fetchall()
@@ -143,9 +141,7 @@ def start_discussion(title, created_by, context_type=None, context_id=None):
     conn.close()
 
     # Notify maintainers
-    notify_role(
-        "maintainer", "discussion", f"New discussion: {title}", f"discussion:{disc_id}"
-    )
+    notify_role("maintainer", "discussion", f"New discussion: {title}", f"discussion:{disc_id}")
 
     return disc_id
 
@@ -387,9 +383,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage:")
         print("  Users:       python collab_system.py user <add|list|role> ...")
-        print(
-            "  Discussions: python collab_system.py discuss <start|comment|list|show|close> ..."
-        )
+        print("  Discussions: python collab_system.py discuss <start|comment|list|show|close> ...")
         print("  Assignments: python collab_system.py assign <create|list|update> ...")
         print("  Notify:      python collab_system.py notify <user> ...")
         sys.exit(1)
@@ -443,9 +437,7 @@ if __name__ == "__main__":
     # === ASSIGNMENT COMMANDS ===
     elif module == "assign":
         if cmd == "create" and len(sys.argv) >= 6:
-            assign_id = assign_item(
-                sys.argv[3], int(sys.argv[4]), sys.argv[5], sys.argv[6]
-            )
+            assign_id = assign_item(sys.argv[3], int(sys.argv[4]), sys.argv[5], sys.argv[6])
             print(f"Assigned {sys.argv[3]} #{sys.argv[4]} to {sys.argv[5]}")
 
         elif cmd == "list":

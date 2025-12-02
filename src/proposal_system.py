@@ -235,9 +235,7 @@ def convert_to_todo(proposal_id):
     c = conn.cursor()
 
     # Get proposal
-    c.execute(
-        "SELECT * FROM proposals WHERE id=? AND status=?", (proposal_id, "approved")
-    )
+    c.execute("SELECT * FROM proposals WHERE id=? AND status=?", (proposal_id, "approved"))
     proposal = c.fetchone()
 
     if not proposal:
@@ -284,9 +282,7 @@ def list_proposals(status=None):
             (status,),
         )
     else:
-        c.execute(
-            "SELECT * FROM proposals ORDER BY status, score DESC, created_at DESC"
-        )
+        c.execute("SELECT * FROM proposals ORDER BY status, score DESC, created_at DESC")
 
     results = c.fetchall()
     conn.close()
@@ -353,9 +349,7 @@ if __name__ == "__main__":
         result = auto_validate(int(sys.argv[2]))
         if result:
             print(f"\nValidation Result: {result['decision'].upper()}")
-            print(
-                f"Score: {result['score']}% ({result['total']:.1f}/{result['max']:.1f})"
-            )
+            print(f"Score: {result['score']}% ({result['total']:.1f}/{result['max']:.1f})")
             print("\nCriteria Scores:")
             for name, score in result["criteria_scores"].items():
                 print(f"  {name}: {score}")
@@ -383,6 +377,4 @@ if __name__ == "__main__":
         proposals = list_proposals(status)
         print(f"\nProposals ({len(proposals)}):")
         for p in proposals:
-            print(
-                f"  [{p[7]}] #{p[0]}: {p[1]} (impact:{p[4]}, effort:{p[5]}, score:{p[8]}%)"
-            )
+            print(f"  [{p[7]}] #{p[0]}: {p[1]} (impact:{p[4]}, effort:{p[5]}, score:{p[8]}%)")

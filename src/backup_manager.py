@@ -97,8 +97,7 @@ def restore_backup(backup_name):
 
     # Create safety backup of current
     safety = (
-        DB_PATH.parent
-        / f"workspace_before_restore_{datetime.now().strftime('%Y%m%d_%H%M%S')}.db"
+        DB_PATH.parent / f"workspace_before_restore_{datetime.now().strftime('%Y%m%d_%H%M%S')}.db"
     )
     shutil.copy2(DB_PATH, safety)
 

@@ -69,9 +69,7 @@ class WorkflowGate:
             return False, f"Reality score too low ({reality}% < 50%)"
 
         # Check if already converted
-        c.execute(
-            "SELECT id FROM proposals WHERE description LIKE ?", (f"%Idea #{idea_id}%",)
-        )
+        c.execute("SELECT id FROM proposals WHERE description LIKE ?", (f"%Idea #{idea_id}%",))
         if c.fetchone():
             return False, "Already converted to proposal"
 
@@ -105,9 +103,7 @@ class WorkflowGate:
             )
 
         # GATE 2: Must have discussion
-        c.execute(
-            "SELECT COUNT(*) FROM discussions WHERE title LIKE ?", (f"%{title[:30]}%",)
-        )
+        c.execute("SELECT COUNT(*) FROM discussions WHERE title LIKE ?", (f"%{title[:30]}%",))
         discussion_count = c.fetchone()[0]
 
         if discussion_count == 0:
@@ -135,9 +131,7 @@ class WorkflowGate:
         """Mark proposal as requiring review"""
         conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
-        c.execute(
-            "UPDATE proposals SET status='needs_review' WHERE id=?", (proposal_id,)
-        )
+        c.execute("UPDATE proposals SET status='needs_review' WHERE id=?", (proposal_id,))
         conn.commit()
         conn.close()
 
@@ -234,9 +228,7 @@ def convert_proposal_to_todo(proposal_id, force=False):
 
     # GATE CHECK
     if not force:
-        can_convert, reason, warnings = WorkflowGate.can_convert_proposal_to_todo(
-            proposal_id
-        )
+        can_convert, reason, warnings = WorkflowGate.can_convert_proposal_to_todo(proposal_id)
         if not can_convert:
             return False, reason, warnings
 
@@ -244,9 +236,7 @@ def convert_proposal_to_todo(proposal_id, force=False):
     c = conn.cursor()
 
     # Get proposal details
-    c.execute(
-        "SELECT title, description, impact FROM proposals WHERE id=?", (proposal_id,)
-    )
+    c.execute("SELECT title, description, impact FROM proposals WHERE id=?", (proposal_id,))
     result = c.fetchone()
 
     if not result:
@@ -365,9 +355,7 @@ if __name__ == "__main__":
 
     elif cmd == "check-proposal" and len(sys.argv) > 2:
         proposal_id = int(sys.argv[2])
-        can_convert, reason, warnings = WorkflowGate.can_convert_proposal_to_todo(
-            proposal_id
-        )
+        can_convert, reason, warnings = WorkflowGate.can_convert_proposal_to_todo(proposal_id)
 
         if can_convert:
             print(f"✓ Proposal #{proposal_id} ready to convert")

@@ -1,0 +1,181 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              WORKSPACE INTELLIGENCE SYSTEM - ARCHITECTURE MAP                ║
+║                          December 2, 2025                                    ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                           USER INTERACTION LAYER                             │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐    │
+│  │   CLI Tools  │  │   Web API    │  │  Automation  │  │   Scripting  │    │
+│  │  workspace_  │  │   (Future)   │  │  Workflows   │  │   Hooks      │    │
+│  │   cli.py     │  │              │  │              │  │              │    │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘    │
+│         │                 │                  │                 │             │
+└─────────┼─────────────────┼──────────────────┼─────────────────┼─────────────┘
+          │                 │                  │                 │
+          ▼                 ▼                  ▼                 ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                        11 INTEGRATED SYSTEMS LAYER                           │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  ┌─────────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │ 1. Knowledge    │  │ 2. Wiki &    │  │ 3. Proposals │  │ 4. Collaboration
+│  │    Base         │  │    Todos     │  │              │  │              │ │
+│  │ kb_manager.py   │  │ ws_mgr*.py   │  │ proposal*.py │  │ collab*.py   │ │
+│  └─────────────────┘  └──────────────┘  └──────────────┘  └──────────────┘ │
+│                                                                               │
+│  ┌─────────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │ 5. Sessions     │  │ 6. Tools     │  │ 7. Reviews   │  │ 8. Quality   │ │
+│  │                 │  │              │  │              │  │    Gates     │ │
+│  │ session_mgr.py  │  │ tools_mgr.py │  │ review*.py   │  │ quality*.py  │ │
+│  └─────────────────┘  └──────────────┘  └──────────────┘  └──────────────┘ │
+│                                                                               │
+│  ┌─────────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │ 9. Prevention   │  │ 10. Maintenance
+│  │                 │  │    Tasks     │  │ 11. Analysis │  │   Support    │ │
+│  │ prevention*.py  │  │ maintenance*.│  │  Analyzer    │  │   Systems    │ │
+│  └─────────────────┘  └──────────────┘  └──────────────┘  └──────────────┘ │
+│                                                                               │
+└─────────────────────────────────────────────────────────────────────────────┬┘
+                          ▲                                   │
+                          │                                   ▼
+┌─────────────────────────┴───────────────────────────────────────────────────┐
+│                    ORCHESTRATION & AUTOMATION LAYER                         │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  ┌─────────────────────────┐  ┌──────────────────────────────────────────┐  │
+│  │  Workflow Engine        │  │  Automation Manager                      │  │
+│  │ smart_workflow.py       │  │ automation_manager.py                   │  │
+│  │ smart_cleanup.py        │  │ implement_strategy.py                   │  │
+│  │ task_automator.py       │  │ auto_integrate.py                       │  │
+│  └────────────┬────────────┘  └──────────────────────────────────────────┘  │
+│               │                                                              │
+└───────────────┼──────────────────────────────────────────────────────────────┘
+                │
+                ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                         ANALYSIS & INSIGHTS LAYER                           │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  ┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────┐  │
+│  │ Improvement Analysis │  │ Optimization        │  │ Evolution        │  │
+│  │ improvement*.py      │  │ optimization*.py    │  │ Tracking         │  │
+│  └──────────────────────┘  └──────────────────────┘  └──────────────────┘  │
+│                                                                               │
+│  ┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────┐  │
+│  │ Health Monitoring    │  │ Deduplication       │  │ Strategy Builder │  │
+│  │ health_monitor.py    │  │ dedup_checker.py    │  │ strategy*.py     │  │
+│  └──────────────────────┘  └──────────────────────┘  └──────────────────┘  │
+│                                                                               │
+└─────────────────────────────────────────────────────────────────────────────┬┘
+                                                          ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                            DATA & PERSISTENCE LAYER                         │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  ┌──────────────────────────────────────────────────────────────────────┐  │
+│  │                    SQLite Database                                   │  │
+│  │            workspace_knowledge.db (14.8 MB)                         │  │
+│  ├──────────────────────────────────────────────────────────────────────┤  │
+│  │ Tables (10):                                                         │  │
+│  │  ✓ knowledge    - Searchable knowledge entries                      │  │
+│  │  ✓ wiki         - Wiki pages with hierarchy                        │  │
+│  │  ✓ todos        - Task management                                  │  │
+│  │  ✓ progress     - Progress tracking                                │  │
+│  │  ✓ proposals    - Feature proposals                                │  │
+│  │  ✓ reviews      - Code/proposal reviews                            │  │
+│  │  ✓ users        - User management                                  │  │
+│  │  ✓ discussions  - Collaborative discussions                        │  │
+│  │  ✓ tools        - Tool registry                                    │  │
+│  │  ✓ tool_executions - Execution history                             │  │
+│  └──────────────────────────────────────────────────────────────────────┘  │
+│                                                                               │
+│  ┌──────────────────────────────────────────────────────────────────────┐  │
+│  │              Database Access Layer                                   │  │
+│  │  db_utils.py (context manager, connection pooling, error handling) │  │
+│  │  schema.py (schema definitions, table creation, migrations)        │  │
+│  └──────────────────────────────────────────────────────────────────────┘  │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                          SUPPORTING UTILITIES LAYER                          │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  ┌────────────────────────┐  ┌────────────────────────────────────────────┐ │
+│  │ Backup & Recovery      │  │ Human-AI Collaboration                     │ │
+│  │ backup_manager.py      │  │ human_ai_collaboration.py                 │ │
+│  │ git_backup.py          │  │ approve_suggestions.py                    │ │
+│  └────────────────────────┘  └────────────────────────────────────────────┘ │
+│                                                                               │
+│  ┌────────────────────────┐  ┌────────────────────────────────────────────┐ │
+│  │ Project Management     │  │ Idea Extraction & Population               │ │
+│  │ project_manager.py     │  │ idea_extractor*.py                        │ │
+│  │                        │  │ populate_system.py                        │ │
+│  └────────────────────────┘  └────────────────────────────────────────────┘ │
+│                                                                               │
+│  ┌────────────────────────────────────────────────────────────────────────┐ │
+│  │ Common Utilities & Helpers                                            │ │
+│  │ tool_helpers.py (shared functions, validators, formatters)          │ │
+│  │ tool_cli.py (CLI utilities)                                         │ │
+│  │ ws_automation_addon.py (automation extensions)                      │ │
+│  └────────────────────────────────────────────────────────────────────────┘ │
+│                                                                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                            DATA FLOW EXAMPLE                                 ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  User Input                                                                 ║
+║      │                                                                      ║
+║      ▼                                                                      ║
+║  workspace_cli.py (Parse & Validate)                                       ║
+║      │                                                                      ║
+║      ├──► System Selection (1 of 11)                                       ║
+║      │                                                                      ║
+║      ├──► Process Request                                                  ║
+║      │    ├─► Apply Prevention Checks                                     ║
+║      │    ├─► Quality Gate Validation                                     ║
+║      │    └─► Business Logic Execution                                    ║
+║      │                                                                      ║
+║      ├──► Database Operations                                              ║
+║      │    └─► db_utils context manager                                    ║
+║      │        └─► schema validation                                       ║
+║      │            └─► SQLite queries                                      ║
+║      │                                                                      ║
+║      ├──► Analysis & Learning                                              ║
+║      │    ├─► Improvement suggestions                                     ║
+║      │    ├─► Optimization recommendations                                ║
+║      │    └─► Evolution tracking                                          ║
+║      │                                                                      ║
+║      ▼                                                                      ║
+║  Output & Feedback                                                         ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                          MODULE DEPENDENCIES                                ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  Core Dependencies (Used by all):                                          ║
+║  ├─ sqlite3 (Database)                                                     ║
+║  ├─ json (Serialization)                                                   ║
+║  ├─ pathlib (File operations)                                              ║
+║  └─ datetime (Timestamps)                                                  ║
+║                                                                              ║
+║  Module Dependencies:                                                      ║
+║  ├─ workspace_cli.py imports all system modules                           ║
+║  ├─ automation_manager.py imports multiple workflow systems               ║
+║  ├─ Most systems import db_utils.py and schema.py                        ║
+║  └─ Prevention system and quality gates used by other modules            ║
+║                                                                              ║
+║  External Dependencies (Optional, for development):                       ║
+║  ├─ pytest (Testing)                                                       ║
+║  ├─ ruff (Linting)                                                         ║
+║  └─ black (Code formatting)                                                ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+

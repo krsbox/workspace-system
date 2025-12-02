@@ -131,9 +131,7 @@ def wiki_list(parent_id=None):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     if parent_id is None:
-        c.execute(
-            "SELECT id, path, title FROM wiki WHERE parent_id IS NULL ORDER BY title"
-        )
+        c.execute("SELECT id, path, title FROM wiki WHERE parent_id IS NULL ORDER BY title")
     else:
         c.execute(
             "SELECT id, path, title FROM wiki WHERE parent_id = ? ORDER BY title",
@@ -161,9 +159,7 @@ def wiki_search(query):
 
 
 # === TODOS ===
-def todo_add(
-    title, description="", priority="medium", project=None, tags=None, due_date=None
-):
+def todo_add(title, description="", priority="medium", project=None, tags=None, due_date=None):
     """Add todo"""
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -223,9 +219,7 @@ def todo_list(status=None, project=None):
             (status,),
         )
     elif project:
-        c.execute(
-            "SELECT * FROM todos WHERE project=? ORDER BY status, priority", (project,)
-        )
+        c.execute("SELECT * FROM todos WHERE project=? ORDER BY status, priority", (project,))
     else:
         c.execute("SELECT * FROM todos ORDER BY status, priority, created_at")
 
@@ -302,9 +296,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 2:
         print("Usage:")
-        print(
-            "  Wiki:     python workspace_manager.py wiki <create|get|list|search> ..."
-        )
+        print("  Wiki:     python workspace_manager.py wiki <create|get|list|search> ...")
         print("  Todo:     python workspace_manager.py todo <add|list|update> ...")
         print("  Progress: python workspace_manager.py progress <add|list|update> ...")
         sys.exit(1)

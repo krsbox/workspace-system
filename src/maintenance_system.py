@@ -271,9 +271,7 @@ def list_capabilities(type=None):
     c = conn.cursor()
 
     if type:
-        c.execute(
-            "SELECT * FROM capabilities WHERE type=? ORDER BY complexity", (type,)
-        )
+        c.execute("SELECT * FROM capabilities WHERE type=? ORDER BY complexity", (type,))
     else:
         c.execute("SELECT * FROM capabilities ORDER BY type, complexity")
 
@@ -339,13 +337,7 @@ def get_complexity_score():
     conn.close()
 
     # Calculate score (higher = more complex)
-    score = (
-        (cap_count * 2)
-        + total_complexity
-        + (total_deps * 3)
-        + tool_count
-        + session_count
-    )
+    score = (cap_count * 2) + total_complexity + (total_deps * 3) + tool_count + session_count
 
     return {
         "score": score,
@@ -449,10 +441,7 @@ def get_utilization_summary():
     results = c.fetchall()
     conn.close()
 
-    return [
-        {"resource": r[0], "used": r[1], "total": r[2], "percent": r[3]}
-        for r in results
-    ]
+    return [{"resource": r[0], "used": r[1], "total": r[2], "percent": r[3]} for r in results]
 
 
 if __name__ == "__main__":
@@ -464,9 +453,7 @@ if __name__ == "__main__":
         print("Usage:")
         print("  Task:       python maintenance_system.py task <add|list|run> ...")
         print("  Capability: python maintenance_system.py cap <register|list|map> ...")
-        print(
-            "  Complexity: python maintenance_system.py complexity <score|suggest> ..."
-        )
+        print("  Complexity: python maintenance_system.py complexity <score|suggest> ...")
         print("  Util:       python maintenance_system.py util <record|summary> ...")
         sys.exit(1)
 

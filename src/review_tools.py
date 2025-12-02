@@ -187,9 +187,7 @@ def auto_review_code(file_path):
     # Check 2: TODO comments
     for i, line in enumerate(lines, 1):
         if "TODO" in line or "FIXME" in line:
-            add_review_comment(
-                review_id, "code", "Unresolved TODO/FIXME", i, "info", "maintenance"
-            )
+            add_review_comment(review_id, "code", "Unresolved TODO/FIXME", i, "info", "maintenance")
             issues.append("todo")
 
     # Check 3: No docstrings (Python)
@@ -228,9 +226,7 @@ def auto_review_code(file_path):
     warnings = sum(1 for i in issues if i in ["long_line", "no_docstring"])
     score = max(0, 100 - (critical * 30) - (warnings * 5))
 
-    status = (
-        "approved" if score >= 80 else "needs_changes" if score >= 60 else "rejected"
-    )
+    status = "approved" if score >= 80 else "needs_changes" if score >= 60 else "rejected"
     complete_review(review_id, status, score)
 
     return review_id
@@ -254,9 +250,7 @@ def review_proposal_quality(proposal_id):
 
     # Check title
     if len(proposal[1]) < 10:
-        add_review_comment(
-            review_id, "proposal", "Title too short", None, "warning", "clarity"
-        )
+        add_review_comment(review_id, "proposal", "Title too short", None, "warning", "clarity")
     else:
         score += 20
 
@@ -365,9 +359,7 @@ if __name__ == "__main__":
             print(f"Status: {review[3]}, Score: {review[4]}")
             print(f"\nFindings: {len(comments)}")
             for c in comments:
-                severity_icon = (
-                    "🔴" if c[4] == "critical" else "🟡" if c[4] == "warning" else "ℹ️"
-                )
+                severity_icon = "🔴" if c[4] == "critical" else "🟡" if c[4] == "warning" else "ℹ️"
                 line_info = f"Line {c[3]}: " if c[3] else ""
                 print(f"  {severity_icon} {line_info}{c[6]}")
                 if c[7]:

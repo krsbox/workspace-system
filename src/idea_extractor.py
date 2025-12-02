@@ -47,9 +47,7 @@ def assess_reality(file_path, content):
         r"sample",
     ]
     for pattern in mock_patterns:
-        if re.search(pattern, str(file_path), re.I) or re.search(
-            pattern, content[:500], re.I
-        ):
+        if re.search(pattern, str(file_path), re.I) or re.search(pattern, content[:500], re.I):
             score -= 30
             warnings.append("⚠️ MOCK/SIMULATION detected")
             break
@@ -135,9 +133,7 @@ def extract_from_project(project_path):
             if reality_score >= 70:
                 for match in re.finditer(r"class\s+(\w+)", content):
                     class_name = match.group(1)
-                    if class_name not in seen_patterns and not class_name.startswith(
-                        "_"
-                    ):
+                    if class_name not in seen_patterns and not class_name.startswith("_"):
                         seen_patterns.add(class_name)
                         ideas.append(
                             {
@@ -236,14 +232,10 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 2:
         print("Usage:")
-        print(
-            "  idea_extractor.py scan <path>          - Scan project (reality >= 50%)"
-        )
+        print("  idea_extractor.py scan <path>          - Scan project (reality >= 50%)")
         print("  idea_extractor.py add <title>          - Add idea manually")
         print("  idea_extractor.py list [category]      - List ideas (reality >= 50%)")
-        print(
-            "  idea_extractor.py list-all [category]  - List all (including low reality)"
-        )
+        print("  idea_extractor.py list-all [category]  - List all (including low reality)")
         sys.exit(1)
 
     cmd = sys.argv[1]
@@ -279,9 +271,7 @@ if __name__ == "__main__":
 
     elif cmd == "add" and len(sys.argv) > 2:
         title = " ".join(sys.argv[2:])
-        idea_id = add_idea(
-            "manual", title, "", "general", "medium", 100, "✓ Manual entry"
-        )
+        idea_id = add_idea("manual", title, "", "general", "medium", 100, "✓ Manual entry")
         print(f"✓ Idea #{idea_id} added")
 
     elif cmd == "list":
